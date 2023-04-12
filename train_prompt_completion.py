@@ -61,7 +61,7 @@ def train(cfg):
                                      output_name=cfg.output_name)
 
     # model initialization
-    model = init_seq2seq_model(cfg.model_size, tokenizer)
+    model = init_seq2seq_model(cfg.model_size, tokenizer, cfg)
 
     # train
     training_args = Seq2SeqTrainingArguments(

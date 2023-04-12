@@ -1,8 +1,11 @@
-from typing import Literal
+from typing import Literal, Optional
 from transformers.models.t5.modeling_t5 import T5Config, T5ForConditionalGeneration
 
 
-def init_seq2seq_model(model_size: Literal["base", "large"], tokenizer):
+def init_seq2seq_model(model_size: Literal["custom", "base", "large"], tokenizer, cfg=None):
+    if model_size == "custom":
+        assert cfg is not None, "You must provide a `cfg` when using `custom` model."
+
     vocab_size = tokenizer.vocab_size
     pad_token_id = tokenizer.pad_token_id
     bos_token_id = tokenizer.bos_token_id
@@ -23,6 +26,13 @@ def init_seq2seq_model(model_size: Literal["base", "large"], tokenizer):
         num_layers = 24
         num_decoder_layers = 24
         num_heads = 16
+    elif model_size == "custom":
+        d_model = cfg.d_model
+        d_kv = cfg.d_kv
+        d_ff = cfg.d_ff
+        num_layers = cfg.num_layers
+        num_decoder_layers = cfg.num_decoder_layers
+        num_heads = cfg.num_heads
     
     config = T5Config(
         vocab_size=vocab_size,

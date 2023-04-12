@@ -3,8 +3,8 @@ import argparse
 
 def create_parser():
     parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
-    parser.add_argument("--model_size", choices=["base", "large"],
-                        help="Model size, one of ['base', 'large'].")
+    parser.add_argument("--model_size", choices=["base", "large", "custom"],
+                        help="Model size, one of ['base', 'large', 'custom'].")
     parser.add_argument("--spiece_model",
                         help="Path to the sentencepiece model.")
     parser.add_argument("--train_data_path",
@@ -51,5 +51,13 @@ def create_parser():
     parser.add_argument("--data_seed", type=int)
     parser.add_argument("--max_input_len", type=int)
     parser.add_argument("--max_output_len", type=int)
+
+    # model params
+    parser.add_argument("--d_model", type=int)
+    parser.add_argument("--d_kv", type=int)
+    parser.add_argument("--d_ff", type=int)
+    parser.add_argument("--num_layers", type=int)
+    parser.add_argument("--num_decoder_layers", type=int)
+    parser.add_argument("--num_heads", type=int)
 
     return parser

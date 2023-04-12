@@ -4,6 +4,7 @@ spiece_model = "assets/tokenizer/spiece/vien.model"
 train_data_path = "data/prompts/split/train/bytedataset"
 valid_data_path = "data/prompts/split/valid/bytedataset"
 
+# training config
 output_dir = "assets/outputs"
 do_train = True
 do_eval = True
@@ -42,3 +43,11 @@ output_name = "completion"
 data_seed = None
 max_input_len = None
 max_output_len = None
+
+# model config
+d_model = 384
+d_kv = 48
+d_ff = 1536
+num_layers = 4
+num_decoder_layers = 4
+num_heads = 8
