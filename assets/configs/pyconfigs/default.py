@@ -40,3 +40,5 @@ generation_num_beams = 1
 input_name = "prompt"
 output_name = "completion"
 data_seed = None
+max_input_len = None
+max_output_len = None

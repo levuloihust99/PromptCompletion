@@ -49,5 +49,7 @@ def create_parser():
     parser.add_argument("--input_name")
     parser.add_argument("--output_name")
     parser.add_argument("--data_seed", type=int)
+    parser.add_argument("--max_input_len", type=int)
+    parser.add_argument("--max_output_len", type=int)
 
     return parser

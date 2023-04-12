@@ -55,7 +55,10 @@ def train(cfg):
     train_dataset = ByteDataset(cfg.train_data_path, idx_record_size=6)
     valid_dataset = ByteDataset(cfg.valid_data_path, idx_record_size=6)
     data_collate_fn = get_collate_fn(tokenizer, normalizer,
-                                    input_name=cfg.input_name, output_name=cfg.output_name)
+                                     max_input_len=cfg.max_input_len,
+                                     max_output_len=cfg.max_output_len,
+                                     input_name=cfg.input_name,
+                                     output_name=cfg.output_name)
 
     # model initialization
     model = init_seq2seq_model(cfg.model_size, tokenizer)
