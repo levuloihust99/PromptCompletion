@@ -54,7 +54,8 @@ def train(cfg):
     # data loader
     train_dataset = ByteDataset(cfg.train_data_path, idx_record_size=6)
     valid_dataset = ByteDataset(cfg.valid_data_path, idx_record_size=6)
-    data_collate_fn = get_collate_fn(tokenizer, normalizer)
+    data_collate_fn = get_collate_fn(tokenizer, normalizer,
+                                    input_name=cfg.input_name, output_name=cfg.output_name)
 
     # model initialization
     model = init_seq2seq_model(cfg.model_size, tokenizer)
@@ -91,7 +92,8 @@ def train(cfg):
         predict_with_generate=cfg.predict_with_generate,
         remove_unused_columns=cfg.remove_unused_columns,
         generation_max_length=cfg.generation_max_length,
-        generation_num_beams=cfg.generation_num_beams
+        generation_num_beams=cfg.generation_num_beams,
+        data_seed=cfg.data_seed
     )
     trainer = Seq2SeqTrainer(
         model=model,

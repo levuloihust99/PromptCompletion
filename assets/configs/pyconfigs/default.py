@@ -37,3 +37,6 @@ resume_from_checkpoint = None
 remove_unused_columns = False
 generation_max_length = 100
 generation_num_beams = 1
+input_name = "prompt"
+output_name = "completion"
+data_seed = None

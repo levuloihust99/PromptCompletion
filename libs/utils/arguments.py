@@ -46,5 +46,8 @@ def create_parser():
     parser.add_argument("--remove_unused_columns", type=eval)
     parser.add_argument("--generation_max_length", type=int)
     parser.add_argument("--generation_num_beams", type=int)
+    parser.add_argument("--input_name")
+    parser.add_argument("--output_name")
+    parser.add_argument("--data_seed", type=int)
 
     return parser
