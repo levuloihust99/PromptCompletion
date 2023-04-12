@@ -1,0 +1,5 @@
+torch~=1.12.1
+tensorboard~=2.12.1
+tensorboardX~=2.6
+transformers~=4.27.4
+sentencepiece~=0.1.97

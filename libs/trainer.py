@@ -1,0 +1,2 @@
+class PromptCompletionTrainer(object):
+    pass
