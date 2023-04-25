@@ -1,5 +1,5 @@
 import torch
-from typing import Text, Dict, List, Any
+from typing import Text, Dict, List, Any, Callable, Optional
 
 from torch.utils.data import DataLoader
 
@@ -11,12 +11,30 @@ from libs.preprocessing.tokenization import SPieceNFKCTokenizer
 def get_collate_fn(
     tokenizer: SPieceNFKCTokenizer,
     normalizer: NFKCNormalizer,
+    input_transform: Optional[Callable] = None,
+    output_transform: Optional[Callable] = None,
     max_input_len: int = None,
     max_output_len: int = None,
     input_name: Text = "prompt",
     output_name: Text = "completion"
 ):
     def collate_fn(items: List[Dict[Text, Any]]):
+        if input_transform:
+            items = [
+                {
+                    k: v if k != input_name
+                    else input_transform(v)
+                    for k, v in ex.items()
+                } for ex in items
+            ]
+        if output_transform:
+            items = [
+                {
+                    k: v if k != output_name
+                    else output_transform(v)
+                    for k, v in ex.items()
+                } for ex in items
+            ]
         batch_input_ids = []
         batch_output_ids = []
         batch_labels = []

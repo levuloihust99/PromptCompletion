@@ -51,3 +51,7 @@ d_ff = 1536
 num_layers = 4
 num_decoder_layers = 4
 num_heads = 8
+
+# data config
+input_transform = None # [json_sequentialize]
+output_transform = None # [json_sequentialize]

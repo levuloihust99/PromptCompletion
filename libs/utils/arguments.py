@@ -60,4 +60,8 @@ def create_parser():
     parser.add_argument("--num_decoder_layers", type=int)
     parser.add_argument("--num_heads", type=int)
 
+    # data params
+    parser.add_argument("--input_transform", choices=["json_sequentialize"])
+    parser.add_argument("--output_transform", choices=["json_sequentialize"])
+
     return parser

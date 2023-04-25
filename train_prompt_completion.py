@@ -7,6 +7,7 @@ from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 from libs.utils.arguments import create_parser
 from libs.data_helpers.bytedataset import ByteDataset
 from libs.data_helpers.dataloader import get_collate_fn
+from libs.data_helpers.sequentialization import transform_json
 from libs.nn.initialization import init_seq2seq_model
 from libs.preprocessing.tokenization import SPieceNFKCTokenizer
 from libs.preprocessing.normalization import NFKCNormalizer
@@ -52,9 +53,21 @@ def train(cfg):
     normalizer = NFKCNormalizer()
 
     # data loader
-    train_dataset = ByteDataset(cfg.train_data_path, idx_record_size=6)
-    valid_dataset = ByteDataset(cfg.valid_data_path, idx_record_size=6)
+    train_dataset = None
+    valid_dataset = None
+    if cfg.do_train:
+        train_dataset = ByteDataset(cfg.train_data_path, idx_record_size=6)
+    if cfg.do_eval:
+        valid_dataset = ByteDataset(cfg.valid_data_path, idx_record_size=6)
+    input_transform = None
+    output_transform = None
+    if cfg.input_transform == "json_sequentialize":
+        input_transform = transform_json
+    if cfg.output_transform == "json_sequentialize":
+        output_transform = transform_json
     data_collate_fn = get_collate_fn(tokenizer, normalizer,
+                                     input_transform=input_transform,
+                                     output_transform=output_transform,
                                      max_input_len=cfg.max_input_len,
                                      max_output_len=cfg.max_output_len,
                                      input_name=cfg.input_name,
